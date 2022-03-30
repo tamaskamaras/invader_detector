@@ -1,3 +1,4 @@
 # frozen_string_literal: true
 
-Dir[Rails.root.join('{app,spec}/**/*.rb')].sort.each { |file| require file }
+require './config/application'
+(Dir['./spec/**/*.rb'].sort - ['./spec/spec_helper.rb']).each { |file| require file }
