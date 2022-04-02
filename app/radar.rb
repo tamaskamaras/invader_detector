@@ -9,6 +9,14 @@ class Radar
     @hight = body.size
   end
 
+  def each_pixel
+    body.each_with_index do |row, y|
+      row.each_index do |x|
+        yield(x, y)
+      end
+    end
+  end
+
   private
 
   def to_a(path)
