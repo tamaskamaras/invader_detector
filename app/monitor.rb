@@ -9,8 +9,8 @@ class Monitor
   end
 
   def detect(invaders)
-    if invaders.is_an?(Array)
-      invaders.map { |invader| detect(invader) }
+    if invaders.is_a?(Array)
+      invaders.flat_map { |invader| detect(invader) }
     else
       detected_invaders(invaders)
     end
@@ -20,7 +20,7 @@ class Monitor
 
   def detected_invaders(invader)
     matches = []
-    screen.each_frame do |frame|
+    screen.each_frame(invader.width, invader.hight) do |frame|
       matches << check(invader, frame)
     end
     matches.compact
