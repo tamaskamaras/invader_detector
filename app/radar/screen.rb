@@ -2,27 +2,14 @@
 
 class Radar
   class Screen < Radar
-    def each_frame(frame_width, frame_height)
+    def each_frame(width, hight)
       body.each_with_index do |row, y|
         row.each_index do |x|
-          frame = to_frame(x, y, frame_width, frame_height)
-          yield(frame) if complete_frame?(frame)
+          frame = Frame.new(self, width, hight)
+          frame.draw(x, y)
+          yield(frame) if frame.valid?
         end
       end
-    end
-
-    private
-
-    # TODO: create Radar::Frame
-    def to_frame(x, y, frame_width, frame_height)
-      body[y...(y + frame_height)].map do |row|
-        row[x...(x + frame_width)]
-      end
-    end
-
-    def complete_frame?(frame)
-      # TODO
-      true
     end
   end
 end

@@ -30,8 +30,8 @@ class Monitor
     {
       size: [],
       coordinates: {
-        x: '',
-        y: ''
+        x: 0,
+        y: 0
       }
     }
 
