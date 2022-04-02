@@ -31,7 +31,13 @@ class Monitor
   def check(invader, frame)
     return if probability(invader, frame) < (100 - tolerance)
 
-    invader.radar_data
+    {
+      size: invader.size,
+      coordinates: {
+        x: frame.x,
+        y: frame.y
+      }
+    }
   end
 
   def probability(invader, frame)

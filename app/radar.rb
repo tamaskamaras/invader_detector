@@ -48,9 +48,9 @@ class Radar
     Pixel.new(body, other_pixel.x, other_pixel.y)
   end
 
-  def set_coordinates(top_left_pixel)
-    @x ||= top_left_pixel.x
-    @y ||= top_left_pixel.y
+  def set_coordinates(top_left_corner)
+    @x ||= top_left_corner.x
+    @y ||= top_left_corner.y
   end
 
   private

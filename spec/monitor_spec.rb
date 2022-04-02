@@ -26,10 +26,7 @@ RSpec.describe Monitor do
       [
         {
           size: invader1.size,
-          coordinates: {
-            x: 0,
-            y: 0
-          }
+          coordinates: { x: 21, y: 12 }
         }
       ]
     end
@@ -47,17 +44,11 @@ RSpec.describe Monitor do
       [
         {
           size: invader1.size,
-          coordinates: {
-            x: 0,
-            y: 0
-          }
+          coordinates: { x: 34, y: 3 }
         },
         {
           size: invader1.size,
-          coordinates: {
-            x: 0,
-            y: 0
-          }
+          coordinates: { x: 21, y: 16 }
         }
       ]
     end
@@ -65,17 +56,11 @@ RSpec.describe Monitor do
       [
         {
           size: invader2.size,
-          coordinates: {
-            x: 0,
-            y: 0
-          }
+          coordinates: { x: 44, y: 21 }
         },
         {
           size: invader2.size,
-          coordinates: {
-            x: 0,
-            y: 0
-          }
+          coordinates: { x: 66, y: 33 }
         }
       ]
     end
@@ -103,24 +88,15 @@ RSpec.describe Monitor do
         [
           {
             size: invader1.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 74, y: 1 }
           },
           {
             size: invader1.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 85, y: 12 }
           },
           {
             size: invader1.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 60, y: 13 }
           }
         ]
       end
@@ -128,31 +104,19 @@ RSpec.describe Monitor do
         [
           {
             size: invader2.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 42, y: 0 }
           },
           {
             size: invader2.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 35, y: 15 }
           },
           {
             size: invader2.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 16, y: 28 }
           },
           {
             size: invader2.size,
-            coordinates: {
-              x: 0,
-              y: 0
-            }
+            coordinates: { x: 82, y: 41 }
           }
         ]
       end
