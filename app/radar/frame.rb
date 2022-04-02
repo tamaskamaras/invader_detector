@@ -2,7 +2,7 @@
 
 class Radar
   class Frame < Radar
-    attr_reader :screen, :width, :hight, :body
+    attr_reader :screen
 
     def initialize(screen, width, hight)
       @screen = screen
@@ -11,6 +11,8 @@ class Radar
     end
 
     def draw_from(pixel)
+      set_coordinates(pixel)
+
       @body = screen.body[pixel.y...(pixel.y + hight)].map do |row|
         row[pixel.x...(pixel.x + width)]
       end

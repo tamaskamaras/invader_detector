@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Radar
-  attr_reader :body, :width, :hight
+  attr_reader :body, :width, :hight, :x, :y
 
   def initialize(source_path)
     # @pixels = TODO
@@ -46,6 +46,11 @@ class Radar
     return unless other_pixel.is_a?(Pixel)
 
     Pixel.new(body, other_pixel.x, other_pixel.y)
+  end
+
+  def set_coordinates(top_left_pixel)
+    @x ||= top_left_pixel.x
+    @y ||= top_left_pixel.y
   end
 
   private
