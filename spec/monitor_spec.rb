@@ -35,10 +35,10 @@ RSpec.describe Monitor do
     let(:invader1_data) do
       [
         {
-          size: [invader1.width, invader1.hight],
+          size: invader1.size,
           coordinates: {
-            x: '',
-            y: ''
+            x: 0,
+            y: 0
           }
         }
       ]
@@ -56,17 +56,17 @@ RSpec.describe Monitor do
     let(:invader1_data) do
       [
         {
-          size: [invader1.width, invader1.hight],
+          size: invader1.size,
           coordinates: {
-            x: '',
-            y: ''
+            x: 0,
+            y: 0
           }
         },
         {
-          size: [invader1.width, invader1.hight],
+          size: invader1.size,
           coordinates: {
-            x: '',
-            y: ''
+            x: 0,
+            y: 0
           }
         }
       ]
@@ -74,17 +74,17 @@ RSpec.describe Monitor do
     let(:invader2_data) do
       [
         {
-          size: [invader2.width, invader2.hight],
+          size: invader2.size,
           coordinates: {
-            x: '',
-            y: ''
+            x: 0,
+            y: 0
           }
         },
         {
-          size: [invader2.width, invader2.hight],
+          size: invader2.size,
           coordinates: {
-            x: '',
-            y: ''
+            x: 0,
+            y: 0
           }
         }
       ]
