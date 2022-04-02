@@ -52,7 +52,7 @@ class Monitor
     invader.each_pixel do |invader_pixel|
       next unless invader_pixel.filled?
 
-      if invader_pixel.body == frame.pixel_from(invader_pixel).body
+      if invader_pixel.body == frame.find_pixel_by(invader_pixel).body
         result += 1
       end
     end

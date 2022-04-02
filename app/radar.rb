@@ -41,7 +41,7 @@ class Radar
     end
   end
 
-  def pixel_from(other_pixel)
+  def find_pixel_by(other_pixel)
     return unless body.is_a?(Array)
     return unless other_pixel.is_a?(Pixel)
 

@@ -83,6 +83,27 @@ RSpec.describe Monitor do
       end
     end
 
+    context 'when tolerance is 10' do
+      let(:invader2_data) do
+        [
+          {
+            size: invader2.size,
+            coordinates: { x: 16, y: 28 }
+          }
+        ]
+      end
+
+      subject(:monitor) do
+        described_class.new(screen, tolerance: 10)
+      end
+
+      it 'returns the size and location of the invaders', :aggregate_failures do
+        expect(monitor.detect(invader1)).to eq([])
+        expect(monitor.detect(invader2)).to eq(invader2_data)
+        expect(monitor.detect([invader1, invader2])).to eq(invader2_data)
+      end
+    end
+
     context 'when tolerance is 20' do
       let(:invader1_data) do
         [
