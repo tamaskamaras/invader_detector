@@ -9,10 +9,16 @@ class Radar
     @hight = body.size
   end
 
+  def valid?
+    return false unless body
+
+    body.size == hight && body.all? { |row| row.size == width }
+  end
+
   def each_pixel
     body.each_with_index do |row, y|
       row.each_index do |x|
-        yield(x, y)
+        yield(Pixel.new(body, x, y))
       end
     end
   end

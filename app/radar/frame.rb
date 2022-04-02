@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Radar
-  class Frame
+  class Frame < Radar
     attr_reader :screen, :width, :hight, :body
 
     def initialize(screen, width, hight)
@@ -10,16 +10,10 @@ class Radar
       @hight = hight
     end
 
-    def draw(x, y)
-      @body = screen.body[y...(y + hight)].map do |row|
-        row[x...(x + width)]
+    def draw_from(pixel)
+      @body = screen.body[pixel.y...(pixel.y + hight)].map do |row|
+        row[pixel.x...(pixel.x + width)]
       end
-    end
-
-    def valid?
-      return false unless body
-
-      body.size == hight && body.all? { |row| row.size == width }
     end
   end
 end

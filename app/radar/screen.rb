@@ -3,9 +3,9 @@
 class Radar
   class Screen < Radar
     def each_frame(width, hight)
-      each_pixel do |x, y|
+      each_pixel do |pixel|
         frame = Frame.new(self, width, hight)
-        frame.draw(x, y)
+        frame.draw_from(pixel)
         yield(frame) if frame.valid?
       end
     end
