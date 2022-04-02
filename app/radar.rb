@@ -25,7 +25,7 @@ class Radar
 
   def filled_pixel_count
     @filled_pixel_count ||= body.inject(0) do |result, row|
-      result + row.select { |pixel| pixel == 'o' }.size
+      result + row.count { |pixel| pixel == 'o' }
     end
   end
 

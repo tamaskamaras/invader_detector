@@ -21,6 +21,8 @@ class Monitor
   def detected_invaders(invader)
     matches = []
     screen.each_frame(invader.width, invader.hight) do |frame|
+      next if frame.filled_pixel_count == 0
+
       matches << check(invader, frame)
     end
     matches.compact
