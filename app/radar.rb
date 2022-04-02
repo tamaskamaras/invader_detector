@@ -23,6 +23,12 @@ class Radar
   end
   alias size pixel_count
 
+  def filled_pixel_count
+    @filled_pixel_count ||= body.inject(0) do |result, row|
+      result + row.select { |pixel| pixel == 'o' }.size
+    end
+  end
+
   def coordinates
     body[0][0]
   end

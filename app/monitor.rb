@@ -29,24 +29,17 @@ class Monitor
   def check(invader, frame)
     return if probability(invader, frame) < (100 - tolerance)
 
-    {
-      size: invader.size,
-      # coordinates: invader.coordinates
-      coordinates: {
-        x: 0,
-        y: 0
-      }
-    }
+    invader.radar_data
   end
 
   def probability(invader, frame)
     return 0 if invader.pixel_count != frame.pixel_count
 
-    (match_count(invader, frame) / invader.pixel_count) * 100
+    (match_count(invader, frame) / invader.filled_pixel_count) * 100
   end
 
   def match_count(invader, frame)
-    result = 0.0
+    result = 0
 
     invader.each_pixel do |invader_pixel|
       next unless invader_pixel.filled?
@@ -56,6 +49,6 @@ class Monitor
       end
     end
 
-    result
+    result.to_f
   end
 end

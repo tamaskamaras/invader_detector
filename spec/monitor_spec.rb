@@ -20,16 +20,6 @@ RSpec.describe Monitor do
     end
   end
 
-  context 'when screen is fully saturated with dots' do
-    let(:screen) { Radar::Screen.new('spec/fixtures/radar/screens/fully_saturated') }
-
-    it 'returns an empty Array', :aggregate_failures do
-      expect(monitor.detect(invader1)).to eq([])
-      expect(monitor.detect(invader2)).to eq([])
-      expect(monitor.detect([invader1, invader2])).to eq([])
-    end
-  end
-
   context 'when screen clearly displays 1 invader' do
     let(:screen) { Radar::Screen.new('spec/fixtures/radar/screens/with_invader_1') }
     let(:invader1_data) do
@@ -100,5 +90,82 @@ RSpec.describe Monitor do
   context 'when screen displays invaders with noise' do
     let(:screen) { Radar::Screen.new('spec/fixtures/radar/screens/with_noise_and_invaders') }
 
+    context 'when tolerance is 0' do
+      it 'returns the size and location of the invaders', :aggregate_failures do
+        expect(monitor.detect(invader1)).to eq([])
+        expect(monitor.detect(invader2)).to eq([])
+        expect(monitor.detect([invader1, invader2])).to eq([])
+      end
+    end
+
+    context 'when tolerance is 20' do
+      let(:invader1_data) do
+        [
+          {
+            size: invader1.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          },
+          {
+            size: invader1.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          },
+          {
+            size: invader1.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          }
+        ]
+      end
+      let(:invader2_data) do
+        [
+          {
+            size: invader2.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          },
+          {
+            size: invader2.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          },
+          {
+            size: invader2.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          },
+          {
+            size: invader2.size,
+            coordinates: {
+              x: 0,
+              y: 0
+            }
+          }
+        ]
+      end
+
+      subject(:monitor) do
+        described_class.new(screen, tolerance: 20)
+      end
+
+      it 'returns the size and location of the invaders', :aggregate_failures do
+        expect(monitor.detect(invader1)).to eq(invader1_data)
+        expect(monitor.detect(invader2)).to eq(invader2_data)
+        expect(monitor.detect([invader1, invader2])).to eq(invader1_data + invader2_data)
+      end
+    end
   end
 end
