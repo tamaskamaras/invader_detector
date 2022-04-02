@@ -19,42 +19,36 @@ class Monitor
   private
 
   def detected_invaders(invader)
-    matches = []
+    result = []
+
     screen.each_frame(invader.width, invader.hight) do |frame|
       next if frame.filled_pixel_count == 0
+      next unless invader_found?(invader, frame)
 
-      matches << check(invader, frame)
+      result << frame.radar_data
     end
-    matches.compact
+
+    result
   end
 
-  def check(invader, frame)
-    return if probability(invader, frame) < (100 - tolerance)
+  def invader_found?(invader, frame)
+    return false if invader.pixel_count != frame.pixel_count
 
-    {
-      size: invader.size,
-      coordinates: {
-        x: frame.x,
-        y: frame.y
-      }
-    }
+    probability(invader, frame) >= (100 - tolerance)
   end
 
   def probability(invader, frame)
-    return 0 if invader.pixel_count != frame.pixel_count
-
-    (match_count(invader, frame) / invader.filled_pixel_count) * 100
+    (matching_pixel_count(invader, frame) / invader.filled_pixel_count) * 100
   end
 
-  def match_count(invader, frame)
+  def matching_pixel_count(invader, frame)
     result = 0
 
     invader.each_pixel do |invader_pixel|
       next unless invader_pixel.filled?
+      next unless frame.find_pixel_by(invader_pixel).filled?
 
-      if invader_pixel.body == frame.find_pixel_by(invader_pixel).body
-        result += 1
-      end
+      result += 1
     end
 
     result.to_f

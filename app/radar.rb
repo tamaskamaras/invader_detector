@@ -4,7 +4,6 @@ class Radar
   attr_reader :body, :width, :hight, :x, :y
 
   def initialize(source_path)
-    # @pixels = TODO
     @body = to_a(source_path)
     @width = body.first.length
     @hight = body.size
@@ -29,10 +28,6 @@ class Radar
     end
   end
 
-  def coordinates
-    body[0][0]
-  end
-
   def each_pixel
     body.each_with_index do |row, y|
       row.each_index do |x|
@@ -53,10 +48,19 @@ class Radar
     @y ||= top_left_corner.y
   end
 
+  def radar_data
+    {
+      size: size,
+      coordinates: {
+        x: x,
+        y: y
+      }
+    }
+  end
+
   private
 
   def to_a(path)
-    # TODO: initialize Pixel objects
     File.read(path).split("\n").map { |row| row.split('') }
   end
 end

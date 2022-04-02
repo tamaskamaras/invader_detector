@@ -19,9 +19,5 @@ class Radar
     def filled?
       body == 'o'
     end
-
-    def pixel_count
-      body.size
-    end
   end
 end
