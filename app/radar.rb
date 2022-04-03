@@ -26,7 +26,7 @@ class Radar
 
   def filled_pixel_count
     @filled_pixel_count ||= pixels.inject(0) do |result, row|
-      result + row.count { |pixel| pixel.body == 'o' }
+      result + row.count(&:filled?)
     end
   end
 
@@ -39,14 +39,16 @@ class Radar
   end
 
   def find_pixel_by(other_pixel)
-    return unless pixels.is_a?(Array)
     return unless other_pixel.is_a?(Pixel)
 
     result = nil
 
+    other_x = other_pixel.x
+    other_y = other_pixel.y
+
     each_pixel do |own_pixel|
-      next if own_pixel.x != other_pixel.x
-      next if own_pixel.y != other_pixel.y
+      next if own_pixel.x != other_x
+      next if own_pixel.y != other_y
 
       result = own_pixel
       break
