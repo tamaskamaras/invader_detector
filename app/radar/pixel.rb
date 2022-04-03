@@ -4,16 +4,18 @@ class Radar
   class Pixel
     attr_reader :x, :y, :body
 
-    def initialize(window, x, y)
+    def initialize(char, x, y)
       @x = x
       @y = y
-      @body = window.is_a?(Array) ? window[y][x] : window
+      @body = char
     end
 
     def valid?
-      %w[o -].includes?(body) &&
-        x.is_a?(Integer) &&
-        y.is_a?(Integer)
+      return false unless %w[o -].includes?(body)
+      return false unless x.is_a?(Integer)
+      return false unless y.is_a?(Integer)
+
+      true
     end
 
     def filled?

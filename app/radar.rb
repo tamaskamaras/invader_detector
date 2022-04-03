@@ -11,8 +11,10 @@ class Radar
 
   def valid?
     return false unless pixels
+    return false if pixels.size != hight
+    return false if pixels.all? { |row| row.size != width }
 
-    pixels.size == hight && pixels.all? { |row| row.size == width }
+    true
   end
 
   def pixel_count
@@ -43,7 +45,11 @@ class Radar
     result = nil
 
     each_pixel do |own_pixel|
-      result = own_pixel if own_pixel.x == other_pixel.x && own_pixel.y == other_pixel.y
+      next if own_pixel.x != other_pixel.x
+      next if own_pixel.y != other_pixel.y
+
+      result = own_pixel
+      break
     end
 
     result
@@ -65,26 +71,24 @@ class Radar
   end
 
   def pixels
-    @pixels ||= set_pixels
+    @pixels ||= begin
+      result = []
+
+      body.each_with_index do |row, y|
+        new_row = []
+
+        row.each_with_index do |char, x|
+          new_row << Pixel.new(char, x, y)
+        end
+
+        result << new_row
+      end
+
+      result
+    end
   end
 
   private
-
-  def set_pixels
-    @pixels = []
-
-    body.each_with_index do |row, y|
-      new_row = []
-
-      row.each_with_index do |char, x|
-        new_row << Pixel.new(char, x, y)
-      end
-
-      @pixels << new_row
-    end
-
-    @pixels
-  end
 
   def to_a(path)
     File.read(path).split("\n").map { |row| row.split('') }
