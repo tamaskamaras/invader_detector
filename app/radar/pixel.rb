@@ -7,7 +7,7 @@ class Radar
     def initialize(window, x, y)
       @x = x
       @y = y
-      @body = window[y][x]
+      @body = window.is_a?(Array) ? window[y][x] : window
     end
 
     def valid?

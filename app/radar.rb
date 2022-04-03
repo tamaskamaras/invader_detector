@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Radar
-  attr_reader :body, :width, :hight, :x, :y
+  attr_reader :body, :pixels, :width, :hight, :x, :y
 
   def initialize(source_path)
     @body = to_a(source_path)
+    set_pixels(source_path)
     @width = body.first.length
     @hight = body.size
   end
@@ -29,9 +30,9 @@ class Radar
   end
 
   def each_pixel
-    body.each_with_index do |row, y|
-      row.each_index do |x|
-        yield(Pixel.new(body, x, y))
+    pixels.each do |row|
+      row.each do |pixel|
+        yield(pixel)
       end
     end
   end
@@ -59,6 +60,22 @@ class Radar
   end
 
   private
+
+  def set_pixels(path)
+    @pixels = []
+
+    to_a(path).each_with_index do |row, y|
+      new_row = []
+
+      row.each_with_index do |char, x|
+        new_row << Pixel.new(char, x, y)
+      end
+
+      @pixels << new_row
+    end
+
+    @pixels
+  end
 
   def to_a(path)
     File.read(path).split("\n").map { |row| row.split('') }
