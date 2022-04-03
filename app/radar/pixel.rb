@@ -5,9 +5,9 @@ class Radar
     attr_reader :x, :y, :body
 
     def initialize(char, x, y)
+      @body = char
       @x = x
       @y = y
-      @body = char
     end
 
     def valid?

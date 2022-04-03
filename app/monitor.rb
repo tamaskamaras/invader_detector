@@ -23,6 +23,7 @@ class Monitor
 
     screen.each_frame(invader.width, invader.hight) do |frame|
       next if frame.filled_pixel_count == 0
+      next if invader.pixel_count != frame.pixel_count
       next unless invader_found?(invader, frame)
 
       result << frame.radar_data
@@ -32,8 +33,6 @@ class Monitor
   end
 
   def invader_found?(invader, frame)
-    return false if invader.pixel_count != frame.pixel_count
-
     probability(invader, frame) >= (100 - tolerance)
   end
 
