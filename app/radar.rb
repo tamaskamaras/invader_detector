@@ -1,31 +1,30 @@
 # frozen_string_literal: true
 
 class Radar
-  attr_reader :body, :pixels, :width, :hight, :x, :y
+  attr_reader :body, :width, :hight, :x, :y
 
   def initialize(source_path)
     @body = to_a(source_path)
-    set_pixels(source_path)
-    @width = body.first.length
-    @hight = body.size
+    @width = pixels.first.length
+    @hight = pixels.size
   end
 
   def valid?
-    return false unless body
+    return false unless pixels
 
-    body.size == hight && body.all? { |row| row.size == width }
+    pixels.size == hight && pixels.all? { |row| row.size == width }
   end
 
   def pixel_count
-    @pixel_count ||= body.inject(0) do |result, row|
+    @pixel_count ||= pixels.inject(0) do |result, row|
       result + row.size
     end
   end
   alias size pixel_count
 
   def filled_pixel_count
-    @filled_pixel_count ||= body.inject(0) do |result, row|
-      result + row.count { |pixel| pixel == 'o' }
+    @filled_pixel_count ||= pixels.inject(0) do |result, row|
+      result + row.count { |pixel| pixel.body == 'o' }
     end
   end
 
@@ -38,10 +37,16 @@ class Radar
   end
 
   def find_pixel_by(other_pixel)
-    return unless body.is_a?(Array)
+    return unless pixels.is_a?(Array)
     return unless other_pixel.is_a?(Pixel)
 
-    Pixel.new(body, other_pixel.x, other_pixel.y)
+    result = nil
+
+    each_pixel do |own_pixel|
+      result = own_pixel if own_pixel.x == other_pixel.x && own_pixel.y == other_pixel.y
+    end
+
+    result
   end
 
   def set_coordinates(top_left_corner)
@@ -59,12 +64,16 @@ class Radar
     }
   end
 
+  def pixels
+    @pixels ||= set_pixels
+  end
+
   private
 
-  def set_pixels(path)
+  def set_pixels
     @pixels = []
 
-    to_a(path).each_with_index do |row, y|
+    body.each_with_index do |row, y|
       new_row = []
 
       row.each_with_index do |char, x|
