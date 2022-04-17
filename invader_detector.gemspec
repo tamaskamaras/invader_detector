@@ -9,16 +9,15 @@ Gem::Specification.new do |gem_spec|
   gem_spec.homepage = 'https://github.com/tamaskamaras/invader_detector'
   gem_spec.license = 'MIT'
   gem_spec.files = [
-    'Gemfile',
-    'app/monitor.rb',
-    'app/radar.rb',
-    'app/radar/frame.rb',
-    'app/radar/invader.rb',
-    'app/radar/pixel.rb',
-    'app/radar/screen.rb',
-    'config/application.rb'
+    'lib/invader_detector.rb',
+    'lib/app/monitor.rb',
+    'lib/app/radar.rb',
+    'lib/app/radar/frame.rb',
+    'lib/app/radar/invader.rb',
+    'lib/app/radar/pixel.rb',
+    'lib/app/radar/screen.rb'
   ]
-  gem_spec.require_paths = ['app', 'spec']
+  gem_spec.require_paths = ['lib']
   gem_spec.metadata = {
     'source_code_uri' => 'https://github.com/tamaskamaras/invader_detector.git'
   }

@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-require './config/application'
+Dir['./lib/app/**/*.rb'].sort.each { |file| require file }
