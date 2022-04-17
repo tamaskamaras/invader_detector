@@ -12,7 +12,7 @@ class Radar
   def valid?
     return false unless pixels
     return false if pixels.size != hight
-    return false if pixels.all? { |row| row.size != width }
+    return false if pixels.any? { |row| row.size != width }
 
     true
   end
